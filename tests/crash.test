@@ -57,3 +57,4 @@ test_crash_vector phoneme-table-switch-appendvowel -v el
 test_crash_vector phoneme-table-switch-appendvowel -v ja
 test_crash_vector suffix-chain-end-phonemes-oob -v en
 test_crash_stdin lookupdict-string-end '\340\062\360\237\227\221\056\010' -D -b 1 -m -q -z
+test_crash_stdin translateword3-uninitialized '\012\257\257\043\257\362\136\220\220\254\362\046\167\056\220\220\254\056' -D -b 1 -m -q -z
