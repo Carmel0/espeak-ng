@@ -19,6 +19,17 @@ test_crash_vector() {
 		$VALGRIND src/espeak-ng "$@" -f "$(dirname $0)/crash_vectors/${TEST_NAME}.txt" -w /dev/null || exit 1
 }
 
+test_crash_stdin() {
+	TEST_NAME=$1
+	INPUT=$2
+	shift 2
+
+	echo "testing ${TEST_NAME}"
+	printf '%b' "$INPUT" | \
+		ESPEAK_DATA_PATH=`pwd` LD_LIBRARY_PATH=src:${LD_LIBRARY_PATH} \
+		$VALGRIND src/espeak-ng "$@" --stdin || exit 1
+}
+
 test_crash cve-2023-49990
 test_crash cve-2023-49991
 test_crash cve-2023-49992
@@ -45,3 +56,4 @@ test_crash_vector phoneme-table-switch-appendvowel -v ar
 test_crash_vector phoneme-table-switch-appendvowel -v el
 test_crash_vector phoneme-table-switch-appendvowel -v ja
 test_crash_vector suffix-chain-end-phonemes-oob -v en
+test_crash_stdin lookupdict-string-end '\340\062\360\237\227\221\056\010' -D -b 1 -m -q -z
