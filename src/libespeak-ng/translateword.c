@@ -1181,7 +1181,7 @@ static int CheckDottedAbbrev(char *word1)
 	word = word1;
 	wbuf = word_buf;
 
-	for (;;) {
+	while (*word != 0) {
 		int ok = 0;
 		int nbytes = utf8_in(&wc, word);
 		if ((word[nbytes] == ' ') && IsAlpha(wc)) {
